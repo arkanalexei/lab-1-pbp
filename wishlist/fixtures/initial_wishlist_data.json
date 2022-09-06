@@ -25,5 +25,14 @@
             "harga_barang":"500000",
             "deskripsi": "Berapa lapis? Ratusan!"
         }
+    },
+    {
+        "model":"wishlist.barangwishlist",
+        "pk":4,
+        "fields":{
+            "nama_barang":"All new pajero sport",
+            "harga_barang":"19900001",
+            "deskripsi": "SI PALING PAJERO"
+        }
     }
 ]
