@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="static/css/styles.css" rel="stylesheet">
     {% endblock meta %}
 </head>
 
@@ -16,10 +17,9 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">{{nama}}</a>
-            <button type="button" class="btn btn-danger"><a href="{% url 'wishlist:logout' %}">Logout</a></button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          </div>
+            <!-- <a class="btn"> -->
+            <button type="button" class="btn btn-danger sticky-top sticky-right"><a class="buttonred" href="{% url 'wishlist:logout' %}">Logout</a></button>
+            <!-- </a>     -->
         </div>
       </nav>
 
@@ -45,7 +45,7 @@
     </table>
     
     <br>
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    <h5 class="d-inline-flex text-center bg-dark text-white">Sesi terakhir login: {{ last_login }}</h5>
 
     {% endblock content %}
 </body>
