@@ -55,19 +55,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'js/jquery.serializejson.min.js' %}"></script>
-    <!-- <script type="text/javascript" src="{% static 'js/wishlist_ajax.js' %}"></script> -->
-
-    <!-- <input type="button" value="magicButton" id="magicButton" />
-
-    <button onclick="changeText()">change text</button>
-
-    <button>Get a new cat!</button> -->
-
-    <!-- <p class="jsonn" id="jso1nn"></p> -->
-
-
-    <!-- <a class="btn btn-xl" href="{% url 'wishlist:ajax_submit' %}">Submit</a> -->
-
 
     <form method="POST" action="{% url 'wishlist:ajax_submit' %}" id="submit_barang">
         {% csrf_token %}
@@ -89,61 +76,11 @@
         </div>
     </form>
 
-    <!-- <script>
-        function getFormData($form) {
-            var unindexed_array = $form.serializeArray();
-            var indexed_array = {};
-
-            $.map(unindexed_array, function (n, i) {
-                indexed_array[n['name']] = n['value'];
-            });
-
-            return indexed_array;
-        }
-
-        // this is the id of the form
-        $(document).ready(function () {
-            $("#submit_barang").submit(function (e) {
-
-                e.preventDefault(); // avoid to execute the actual submit of the form.
-
-                var form = $(this);
-
-                console.log("data")
-                // console.log(form.serialize())
-                var data = form.serialize()
-                var serializedData = getFormData(form);
-                console.log(serializedData)
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'wishlist:show_wishlist_ajax' %}",
-                    data: serializedData,
-                    dataType: 'text',
-                    
-                    success: function (data) {
-                        console.log('Submission was successful.');
-                        // console.log(data);
-                        // $.getJSON("{% url 'wishlist:show_json' %}", function (json) {
-                        // JSON result in `data` variable
-
-                        $(".tbody").append("<tr><td>" + serializedData.nama + "</td><td>" + serializedData.harga + "</td><td>" + serializedData.deskripsi + "</td></tr>");
-
-                    // });
-                    },
-                    error: function (data) {
-                        console.log('An error occurred.');
-                    },
-                });
-            });
-        });
-    </script> -->
-
     <script type="text/javascript">
 
         // GET
         $.get("{% url 'wishlist:show_json' %}", function (data) {
             $.each(data, function (i, value) {
-                // console.log(value.fields.nama_barang);
                 $(".tbody").append("<tr><td>" + value.fields.nama_barang + "</td><td>" + value.fields.harga_barang + "</td><td>" + value.fields.deskripsi + "</td></tr>");
             }
             )
@@ -168,14 +105,10 @@
                     data: formJSON,
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
-                
-                dataType: 'json',
 
-        
-                
                 success: function(response) {
                     $(response).each(function(i, value) {
-                        $(".tbody").append("<tr><td>" + value.nama_barang + "</td><td>" + value.harga_barang + "</td><td>" + value.deskripsi + "</td></tr>");
+                        $(".tbody").append("<tr><td>" + value.fields.nama_barang + "</td><td>" + value.fields.harga_barang + "</td><td>" + value.fields.deskripsi + "</td></tr>");
                     });
                     $('#submit_barang').each(function(){
                         this.reset();
@@ -187,14 +120,11 @@
                     console.log("ada error")
                     console.log("xhr",xhr)
                     console.log("resp",resp)
+                    console.log("text",text)
                 }
             });
         });
     </script>
-    <img alt="cat" src="https://cdn2.thecatapi.com/images/0Vz3XgaPM.jpg" width="400" height="400" objectFit="cover"
-        class="cat-photo">
-
-
 
     {% endblock content %}
 </body>
