@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import json
+
 # Create your views here.
 
 @login_required(login_url='/wishlist/login/')
@@ -85,12 +87,23 @@ def logout_user(request):
 
 @login_required(login_url='/wishlist/login/')
 def ajax_submit(request):
+    # if request.method == "POST":
+    #     nama_barang = request.POST['nama']
+    #     harga_barang = request.POST['harga']
+    #     deskripsi = request.POST['deskripsi']
+
+    #     barang_baru = BarangWishlist.objects.create(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
+    #     barang_baru.save()
+
+    #     return JsonResponse({'error': False, 'msg':'Successful'})
+    # return redirect('wishlist:show_wishlist_ajax')
+
     if request.method == "POST":
-        nama_barang = request.POST['nama']
-        harga_barang = request.POST['harga']
-        deskripsi = request.POST['deskripsi']
+        data = json.loads(request.POST['data'])
 
-        barang_baru = BarangWishlist.objects.create(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
-        return JsonResponse({'error': False, 'msg':'Successful'})
+        barang_baru = BarangWishlist(nama_barang=data["nama_barang"], harga_barang=data["harga_barang"], deskripsi=data["deskripsi"])
+        barang_baru.save()
+
+        return HttpResponse(serializers.serialize("json", [barang_baru]), content_type="application/json")
+
     return redirect('wishlist:show_wishlist_ajax')
-
